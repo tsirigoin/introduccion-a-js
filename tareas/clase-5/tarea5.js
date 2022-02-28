@@ -6,7 +6,7 @@
 // 3. obtener el número más grande y mostrarlo en un <em> pre-creado con el texto "El número más grande es..."
 // 4. obtener el número que más se repite y mostrarlo en un <em> pre-creado con el texto "El número más frecuente es..."
 
-const $returnButton = document.querySelector('#returnButton');
+const $returnButton = document.querySelector('#return-button');
 
 function calculateAverage(numbers) {
 	let sum = 0;
@@ -50,9 +50,9 @@ $returnButton.onclick = function () {
 	for (let elem of list) {
 		numbers.push(Number(elem.innerHTML));
 	}
-	document.querySelector('#averageReturn').innerText = 'El promedio es'.concat(' ',calculateAverage(numbers).toString());
-	document.querySelector('#smallestReturn').innerText = 'El número más pequeño es'.concat(' ',calculateSmallest(numbers).toString());
-	document.querySelector('#biggestReturn').innerText = 'El número más grande es'.concat(' ',calculateBiggest(numbers).toString());
-	document.querySelector('#repeatedReturn').innerText = 'El número más frecuente es'.concat(' ',calculateFrequent(numbers).toString());
+	document.querySelector('#average-return').innerText = 'El promedio es'.concat(' ',calculateAverage(numbers).toString());
+	document.querySelector('#smallest-return').innerText = 'El número más pequeño es'.concat(' ',calculateSmallest(numbers).toString());
+	document.querySelector('#biggest-return').innerText = 'El número más grande es'.concat(' ',calculateBiggest(numbers).toString());
+	document.querySelector('#repeated-return').innerText = 'El número más frecuente es'.concat(' ',calculateFrequent(numbers).toString());
 	return false;
 }

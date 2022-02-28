@@ -6,7 +6,7 @@
 // al apretar el botón "Calcular tiempo total", debe mostrar en un
 // <strong> pre-creado el tiempo total de los videos.
 
-const $calculateButton = document.querySelector('#calculateButton');
+const $calculateButton = document.querySelector('#calculate-button');
 
 $calculateButton.onclick = function() {
 	const hours1 = Number(document.querySelector('#hours1').value);
@@ -36,7 +36,7 @@ $calculateButton.onclick = function() {
 		totalMinutes = remainder;
 	}
 
-	document.querySelector('#resultadoFinal').innerText = 
+	document.querySelector('#resultado-final').innerText = 
 		'El contenido total es de'.concat(' ',totalHours)+' horas,'.concat(' ',totalMinutes)+' minutos y'.concat(' ',totalSeconds)+' segundos.';
 	return false;
 }

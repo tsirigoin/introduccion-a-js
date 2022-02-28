@@ -5,12 +5,12 @@
 // mostrar toda la información junta en un campo de texto
 // Y va a cambiar el <h1> para decir "Bienvenido, nombreDeUsuario"!
 
-const $accessButton = document.querySelector('#accessButton');
+const $accessButton = document.querySelector('#access-button');
 
 $accessButton.onclick = function() {
-	const firstName = document.querySelector('#firstName').value;
-	const middleName = document.querySelector('#middleName').value;
-	const lastName = document.querySelector('#lastName').value;
+	const firstName = document.querySelector('#first-name').value;
+	const middleName = document.querySelector('#middle-name').value;
+	const lastName = document.querySelector('#last-name').value;
 	const age = document.querySelector('#age').value;
 
 	const fullName = firstName.concat(' ',middleName.concat(' ',lastName));
