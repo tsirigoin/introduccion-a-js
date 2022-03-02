@@ -20,12 +20,18 @@ $familySizeConfirm.onclick = function() {
 		document.querySelector('#results').classList.add('hidden');
 	}
 }
+
 const $restart = document.querySelector('#reset-btn');
 $restart.onclick = function() {
 	removeMemberInputs();
+	removeSalaryInputs();
 	document.querySelector('#calculate-button').classList.add('hidden');
-	document.querySelector('#results').classList.add('hidden');
+	document.querySelector('#age-results').classList.add('hidden');
+	document.querySelector('#calculate-salaries').classList.add('hidden');
+	document.querySelector('#add-salaries-btn').classList.add('hidden');
+	document.querySelector('#salary-results').classList.add('hidden');
 } 
+
 function createMember() {
 	const $div = document.createElement('div');
 	$div.setAttribute('class','member');
@@ -36,13 +42,21 @@ function createMember() {
 	$div.appendChild($memberAgeInput);
 	document.querySelector('#members-age-form').appendChild($div);
 }
+
 function removeMemberInputs() {
 	const $members = document.querySelectorAll('.member');
 	for (let i = 0; i < $members.length; i++) {
 		$members[i].remove();
 	}
 }
-const $calculateButton = document.querySelector('#calculate-button');
+
+function removeSalaryInputs() {
+	const $salaries = document.querySelectorAll('.member-salary');
+	for (let i = 0; i < $salaries.length; i++) {
+		$salaries[i].remove();
+	}
+}
+
 function minimum(numbers) {
 	let min = numbers[0];
 	for (let number of numbers) {
@@ -52,6 +66,7 @@ function minimum(numbers) {
 	}
 	return min;
 }
+
 function maximum(numbers) {
 	let max = numbers[0];
 	for (let number of numbers) {
@@ -61,6 +76,7 @@ function maximum(numbers) {
 	}
 	return max;
 }
+
 function average(numbers) {
 	let sum = 0;
 	for (let number of numbers) {
@@ -68,6 +84,7 @@ function average(numbers) {
 	}
 	return sum / numbers.length;
 }
+
 function getNumbers(list) {
 	const arr = [];
 	for (let val of list) {
@@ -75,6 +92,8 @@ function getNumbers(list) {
 	}
 	return arr;
 }
+
+const $calculateButton = document.querySelector('#calculate-button');
 $calculateButton.onclick = function() {
 	const memberAges = document.querySelectorAll('.member-age-input');
 	const ages = getNumbers(memberAges);
@@ -84,10 +103,9 @@ $calculateButton.onclick = function() {
 	document.querySelector('#min-age').innerText = 'El de menor edad tiene '+min+'.';
 	document.querySelector('#max-age').innerText = 'El de mayor edad tiene '+max+'.';
 	document.querySelector('#avg-age').innerText = 'El promedio de edad es de '+avg+'.';
-	document.querySelector('#results').classList.remove('hidden');
+	document.querySelector('#age-results').classList.remove('hidden');
+	document.querySelector('#add-salaries-btn').classList.remove('hidden');
 }
-
-
 
 /*
 TAREA:
@@ -96,3 +114,57 @@ Al hacer click en "calcular", mostrar en un elemento pre-existente el mayor sala
 
 Punto bonus: si hay inputs vacíos, ignorarlos en el cálculo (no contarlos como 0).
 */
+
+function createSalaryBox() {
+	const $div = document.createElement('div');
+	$div.setAttribute('class','member-salary');
+	const $memberSalaryInput = document.createElement('input');
+	$memberSalaryInput.setAttribute('class','member-salary-input');
+	$memberSalaryInput.setAttribute('placeholder','Ingrese el salario');
+	$memberSalaryInput.setAttribute('type','number');
+	$div.appendChild($memberSalaryInput);
+	document.querySelector('#members-salary-form').appendChild($div);
+}
+
+const $addSalariesBtn = document.querySelector('#add-salaries-btn');
+$addSalariesBtn.onclick = function() {
+	const members = document.querySelectorAll('.member');
+	removeSalaryInputs();
+	for (let i = 0; i < members.length; i++) {
+		createSalaryBox();
+	}
+	if (members.length != 0) {
+		document.querySelector('#calculate-salaries').classList.remove('hidden');
+	} else if (!document.querySelector('#calculate-salaries').classList.contains('hidden')) {
+		document.querySelector('#calculate-salaries').classList.add('hidden');
+		document.querySelector('#add-salaries-btn').classList.add('hidden');
+	}
+}
+
+function getSalaries(list) {
+	const arr = [];
+	for (let val of list) {
+		arr.push(Number(val.value));
+	}
+	return arr.filter(positiveSalary);
+}
+
+function positiveSalary(value) {
+	return value > 0;
+}
+
+const $calculateSalaries = document.querySelector('#calculate-salaries');
+$calculateSalaries.onclick = function() {
+	const memberSalaries = document.querySelectorAll('.member-salary-input');
+	const salaries = getSalaries(memberSalaries);
+	const min = minimum(salaries);
+	const max = maximum(salaries);
+	const avg = average(salaries);
+	const MONTHS_IN_A_YEAR = 12;
+	const monthAvg = avg / MONTHS_IN_A_YEAR;
+	document.querySelector('#max-salary').innerText = 'El mayor salario anual es de '+max+'.';
+	document.querySelector('#min-salary').innerText = 'El menor salario anual es de '+min+'.';
+	document.querySelector('#yearly-avg-salary').innerText = 'El salario anual promedio es de '+avg+'.';
+	document.querySelector('#monthly-avg-salary').innerText = 'El salario mensual promedio es de '+monthAvg+'.';
+	document.querySelector('#salary-results').classList.remove('hidden');
+}
